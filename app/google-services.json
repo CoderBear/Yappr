@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "573291636634",
+    "firebase_url": "https://yappr-2e7e6.firebaseio.com",
+    "project_id": "yappr-2e7e6",
+    "storage_bucket": "yappr-2e7e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573291636634:android:2d703b44cff733bc",
+        "android_client_info": {
+          "package_name": "com.udemy.sbsapps.yappr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573291636634-6cdr6hph2h14th50ig05mlhl71bpj2sb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.udemy.sbsapps.yappr",
+            "certificate_hash": "eef969e5a91b56a346758f3fac3e674fcbf8b8ec"
+          }
+        },
+        {
+          "client_id": "573291636634-su19bdfc0pc2jonrt1sk80bogcc9vmhq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPot-UQ4z0BecxnFuu3lxu7duJ_4hChk4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573291636634-su19bdfc0pc2jonrt1sk80bogcc9vmhq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
