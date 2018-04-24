@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Yappr</string>
     <string name="action_settings">Settings</string>
+    <string name="category_funny">funny</string>
+    <string name="category_serious">serious</string>
+    <string name="category_crazy">crazy</string>
+    <string name="category_popular">popular</string>
 </resources>
