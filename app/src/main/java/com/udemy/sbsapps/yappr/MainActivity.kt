@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
     fun mainFunnyClicked (view: View) {
         if(selectedCategory == FUNNY) {
             mainFunnyButton.isChecked = true
+            return
         }
         mainSeriousButton.isChecked = false
         mainCrazyButton.isChecked = false
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity() {
     fun mainSeriousClicked (view: View) {
         if(selectedCategory == SERIOUS) {
             mainSeriousButton.isChecked = true
+            return
         }
         mainFunnyButton.isChecked = false
         mainCrazyButton.isChecked = false
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     fun mainCrazyClicked (view: View) {
         if(selectedCategory == CRAZY) {
             mainCrazyButton.isChecked = true
+            return
         }
         mainFunnyButton.isChecked = false
         mainSeriousButton.isChecked = false
@@ -81,6 +84,7 @@ class MainActivity : AppCompatActivity() {
     fun mainPopularClicked (view: View) {
         if(selectedCategory == POPULAR) {
             mainPopularButton.isChecked = true
+            return
         }
         mainFunnyButton.isChecked = false
         mainSeriousButton.isChecked = false
