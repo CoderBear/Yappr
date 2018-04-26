@@ -14,12 +14,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance()
     }
 
     fun loginLoginClicked(view: View) {}
     fun loginCreateClicked(view: View) {
-        var intent = Intent(this, CreateUserActivity::class.java)
+        val intent = Intent(this, CreateUserActivity::class.java)
         startActivity(intent)
     }
 }
