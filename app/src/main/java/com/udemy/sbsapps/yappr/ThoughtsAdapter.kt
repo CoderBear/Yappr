@@ -4,8 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-//import android.widget.ImageView
+import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.firestore.FirebaseFirestore
 //import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,7 +30,7 @@ class ThoughtsAdapter(val thoughts: ArrayList<Thought>) : RecyclerView.Adapter<T
 //        val timestamp =  itemView?.findViewById<TextView>(R.id.listViewTimestamp)
         val thoughtTxt =  itemView?.findViewById<TextView>(R.id.listViewThoughtText)
         val numLikes =  itemView?.findViewById<TextView>(R.id.listViewNumLikesLabel)
-//        val likesImage =  itemView?.findViewById<ImageView>(R.id.listViewLikesImage)
+        val likesImage =  itemView?.findViewById<ImageView>(R.id.listViewLikesImage)
 
         fun bindThought(thought: Thought) {
             username?.text = thought.username
@@ -39,6 +40,11 @@ class ThoughtsAdapter(val thoughts: ArrayList<Thought>) : RecyclerView.Adapter<T
 //            val dateFormatter = SimpleDateFormat("MMM d, h:mm a", Locale.getDefault())
 //            val dateString = dateFormatter.format(thought.timestamp)
 //            timestamp?.text = dateString
+
+            likesImage?.setOnClickListener {
+                FirebaseFirestore.getInstance().collection(THOUGHTS_REF).document(thought.documentId)
+                        .update(NUM_LIKES, thought.numLikes + 1)
+            }
 
         }
     }

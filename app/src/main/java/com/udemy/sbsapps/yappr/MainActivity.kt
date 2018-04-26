@@ -6,10 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.text.SimpleDateFormat
@@ -55,24 +52,7 @@ class MainActivity : AppCompatActivity() {
                             Log.e("Exception", "Could not retrieve documents: $exception")
                         }
                         if (snapshot != null) {
-                            thoughts.clear()
-                            for (document in snapshot.documents) {
-                                val data = document.data
-                                Log.i("data", data.toString())
-                                val name = data!![USERNAME] as String
-//                    val timestamp = data[TIMESTAMP] as Date
-                                val thoughtTxt = data[THOUGHT_TXT] as String
-                                val numLikes = data[NUM_LIKES] as Long
-                                val numComments = data[NUM_COMMENTS] as Long
-                                val documentId = document.id
-
-                                val timestamp = FieldValue.serverTimestamp()
-
-
-                                val newThought = Thought(name, thoughtTxt, numLikes.toInt(), numComments.toInt(), documentId)
-                                thoughts.add(newThought)
-                            }
-                            thoughtsAdapter.notifyDataSetChanged()
+                            parseData(snapshot)
                         }
                     }
         } else {
@@ -84,27 +64,31 @@ class MainActivity : AppCompatActivity() {
                             Log.e("Exception", "Could not retrieve documents: $exception")
                         }
                         if (snapshot != null) {
-                            thoughts.clear()
-                            for (document in snapshot.documents) {
-                                val data = document.data
-                                Log.i("data", data.toString())
-                                val name = data!![USERNAME] as String
-//                    val timestamp = data[TIMESTAMP] as Date
-                                val thoughtTxt = data[THOUGHT_TXT] as String
-                                val numLikes = data[NUM_LIKES] as Long
-                                val numComments = data[NUM_COMMENTS] as Long
-                                val documentId = document.id
-
-                                val timestamp = FieldValue.serverTimestamp()
-
-
-                                val newThought = Thought(name, thoughtTxt, numLikes.toInt(), numComments.toInt(), documentId)
-                                thoughts.add(newThought)
-                            }
-                            thoughtsAdapter.notifyDataSetChanged()
+                            parseData(snapshot)
                         }
                     }
         }
+    }
+
+    fun parseData(snapshot: QuerySnapshot) {
+        thoughts.clear()
+        for (document in snapshot.documents) {
+            val data = document.data
+            Log.i("data", data.toString())
+            val name = data!![USERNAME] as String
+//                    val timestamp = data[TIMESTAMP] as Date
+            val thoughtTxt = data[THOUGHT_TXT] as String
+            val numLikes = data[NUM_LIKES] as Long
+            val numComments = data[NUM_COMMENTS] as Long
+            val documentId = document.id
+
+            val timestamp = FieldValue.serverTimestamp()
+
+
+            val newThought = Thought(name, thoughtTxt, numLikes.toInt(), numComments.toInt(), documentId)
+            thoughts.add(newThought)
+        }
+        thoughtsAdapter.notifyDataSetChanged()
     }
 
     fun mainFunnyClicked (view: View) {
