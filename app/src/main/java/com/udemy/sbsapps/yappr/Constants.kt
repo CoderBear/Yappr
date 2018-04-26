@@ -2,6 +2,7 @@ package com.udemy.sbsapps.yappr
 
 //Collections Reference
 const val THOUGHTS_REF = "thoughts"
+const val USERS_REF = "users"
 
 // Category Constants
 const val FUNNY = "funny"
@@ -16,3 +17,4 @@ const val NUM_LIKES = "numLikes"
 const val THOUGHT_TXT = "thoughtTxt"
 const val TIMESTAMP = "timestamp"
 const val USERNAME = "username"
+const val DATE_CREATED = "dateCreated"
