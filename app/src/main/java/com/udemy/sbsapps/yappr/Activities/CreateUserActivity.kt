@@ -1,6 +1,5 @@
-package com.udemy.sbsapps.yappr
+package com.udemy.sbsapps.yappr.Activities
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +8,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.udemy.sbsapps.yappr.Utilities.DATE_CREATED
+import com.udemy.sbsapps.yappr.R
+import com.udemy.sbsapps.yappr.Utilities.USERNAME
+import com.udemy.sbsapps.yappr.Utilities.USERS_REF
 import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity : AppCompatActivity() {

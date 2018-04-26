@@ -1,4 +1,4 @@
-package com.udemy.sbsapps.yappr
+package com.udemy.sbsapps.yappr.Adapaters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,14 +7,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
-//import java.text.SimpleDateFormat
+import com.udemy.sbsapps.yappr.Utilities.NUM_LIKES
+import com.udemy.sbsapps.yappr.R
+import com.udemy.sbsapps.yappr.Utilities.THOUGHTS_REF
+import com.udemy.sbsapps.yappr.Models.Thought
+import java.text.SimpleDateFormat
 import java.util.*
 
-class ThoughtsAdapter(val thoughts: ArrayList<Thought>) : RecyclerView.Adapter<ThoughtsAdapter.ViewHolder>() {
+class ThoughtsAdapter(val thoughts: ArrayList<Thought>, val itemClick: (Thought) -> Unit) : RecyclerView.Adapter<ThoughtsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.thought_list_view, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -25,9 +29,9 @@ class ThoughtsAdapter(val thoughts: ArrayList<Thought>) : RecyclerView.Adapter<T
         holder?.bindThought(thoughts[position])
     }
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View?, val itemClick: (Thought) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val username =  itemView?.findViewById<TextView>(R.id.listViewUsername)
-//        val timestamp =  itemView?.findViewById<TextView>(R.id.listViewTimestamp)
+        val timestamp =  itemView?.findViewById<TextView>(R.id.listViewTimestamp)
         val thoughtTxt =  itemView?.findViewById<TextView>(R.id.listViewThoughtText)
         val numLikes =  itemView?.findViewById<TextView>(R.id.listViewNumLikesLabel)
         val likesImage =  itemView?.findViewById<ImageView>(R.id.listViewLikesImage)
@@ -37,9 +41,10 @@ class ThoughtsAdapter(val thoughts: ArrayList<Thought>) : RecyclerView.Adapter<T
             thoughtTxt?.text = thought.thoughtText
             numLikes?.text = thought.numLikes.toString()
 
-//            val dateFormatter = SimpleDateFormat("MMM d, h:mm a", Locale.getDefault())
-//            val dateString = dateFormatter.format(thought.timestamp)
-//            timestamp?.text = dateString
+            val dateFormatter = SimpleDateFormat("MMM d, h:mm a", Locale.getDefault())
+            val dateString = dateFormatter.format(thought.timestamp)
+            timestamp?.text = dateString
+            itemView.setOnClickListener { itemClick(thought) }
 
             likesImage?.setOnClickListener {
                 FirebaseFirestore.getInstance().collection(THOUGHTS_REF).document(thought.documentId)

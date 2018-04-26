@@ -1,8 +1,9 @@
-package com.udemy.sbsapps.yappr
+package com.udemy.sbsapps.yappr.Utilities
 
 //Collections Reference
 const val THOUGHTS_REF = "thoughts"
 const val USERS_REF = "users"
+const val COMMENTS_REF = "comments"
 
 // Category Constants
 const val FUNNY = "funny"
@@ -18,3 +19,7 @@ const val THOUGHT_TXT = "thoughtTxt"
 const val TIMESTAMP = "timestamp"
 const val USERNAME = "username"
 const val DATE_CREATED = "dateCreated"
+const val COMMENT_TXT = "commentTxt"
+
+// Other Constants
+const val DOCUMENT_KEY = "docId"

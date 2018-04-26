@@ -1,4 +1,4 @@
-package com.udemy.sbsapps.yappr
+package com.udemy.sbsapps.yappr.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.View
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.udemy.sbsapps.yappr.*
+import com.udemy.sbsapps.yappr.Utilities.*
 import kotlinx.android.synthetic.main.activity_add_thought.*
 
 class AddThoughtActivity : AppCompatActivity() {

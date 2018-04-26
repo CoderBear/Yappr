@@ -1,4 +1,4 @@
-package com.udemy.sbsapps.yappr
+package com.udemy.sbsapps.yappr.Activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
+import com.udemy.sbsapps.yappr.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
