@@ -43,6 +43,7 @@ class AddThoughtActivity : AppCompatActivity() {
         }
         addSeriousButton.isChecked = false
         addCrazyButton.isChecked = false
+        selectedCategory = FUNNY
     }
     fun addSeriousClicked (view: View) {
         if(selectedCategory == SERIOUS) {
@@ -51,6 +52,7 @@ class AddThoughtActivity : AppCompatActivity() {
         }
         addFunnyButton.isChecked = false
         addCrazyButton.isChecked = false
+        selectedCategory = SERIOUS
     }
     fun addCrazyClicked (view: View) {
         if(selectedCategory == CRAZY) {
@@ -59,5 +61,6 @@ class AddThoughtActivity : AppCompatActivity() {
         }
         addFunnyButton.isChecked = false
         addSeriousButton.isChecked = false
+        selectedCategory = CRAZY
     }
 }
