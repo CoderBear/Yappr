@@ -13,12 +13,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.udemy.sbsapps.yappr.Adapaters.Comment
 import com.udemy.sbsapps.yappr.Adapaters.CommentAdapter
+import com.udemy.sbsapps.yappr.Interfaces.CommentOptionsClickListener
 import com.udemy.sbsapps.yappr.R
 import com.udemy.sbsapps.yappr.Utilities.*
 import kotlinx.android.synthetic.main.activity_comments.*
 import java.util.*
 
-class CommentsActivity : AppCompatActivity() {
+class CommentsActivity : AppCompatActivity(), CommentOptionsClickListener {
+
+    override fun commentOptionsMenuClicked(comment: Comment) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     lateinit var thoughtDocumentId : String
     lateinit var commentsAdapter: CommentAdapter
     val comments = arrayListOf<Comment>()
@@ -29,7 +35,7 @@ class CommentsActivity : AppCompatActivity() {
 
         thoughtDocumentId = intent.getStringExtra(DOCUMENT_KEY)
 
-        commentsAdapter = CommentAdapter(comments)
+        commentsAdapter = CommentAdapter(comments, this)
         commentListView.adapter = commentsAdapter
         val layoutManager = LinearLayoutManager(this)
         commentListView.layoutManager = layoutManager

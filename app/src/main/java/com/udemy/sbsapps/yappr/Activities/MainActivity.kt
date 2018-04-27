@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.udemy.sbsapps.yappr.*
 import com.udemy.sbsapps.yappr.Adapaters.ThoughtsAdapter
+import com.udemy.sbsapps.yappr.Interfaces.ThoughtOptionsClickListener
 import com.udemy.sbsapps.yappr.Models.Thought
 import com.udemy.sbsapps.yappr.R
 import com.udemy.sbsapps.yappr.Utilities.*
@@ -19,7 +20,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ThoughtOptionsClickListener {
+
+    override fun thoughtOptionsMenuClicked(thought: Thought) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     var selectedCategory = FUNNY
     lateinit var thoughtsAdapter: ThoughtsAdapter
@@ -38,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(addThoughtIntent)
         }
 
-        thoughtsAdapter = ThoughtsAdapter(thoughts) { thought ->
+        thoughtsAdapter = ThoughtsAdapter(thoughts, this) { thought ->
             val intent = Intent(this, CommentsActivity::class.java)
             intent.putExtra(DOCUMENT_KEY, thought.documentId)
             startActivity(intent)
