@@ -2,23 +2,33 @@ package com.udemy.sbsapps.yappr.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.udemy.sbsapps.yappr.Adapaters.Comment
+import com.udemy.sbsapps.yappr.Adapaters.CommentAdapter
 import com.udemy.sbsapps.yappr.R
 import com.udemy.sbsapps.yappr.Utilities.*
 import kotlinx.android.synthetic.main.activity_comments.*
 
 class CommentsActivity : AppCompatActivity() {
     lateinit var thoughtDocumentId : String
+    lateinit var commentsAdapter: CommentAdapter
+    val comments = arrayListOf<Comment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
 
         thoughtDocumentId = intent.getStringExtra(DOCUMENT_KEY)
+
+        commentsAdapter = CommentAdapter(comments)
+        commentListView.adapter = commentsAdapter
+        val layoutManager = LinearLayoutManager(this)
+        commentListView.layoutManager = layoutManager
     }
 
     fun addCommentClicked(view: View) {
