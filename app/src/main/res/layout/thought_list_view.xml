@@ -25,9 +25,9 @@
         android:layout_marginStart="6dp"
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/listViewUsername"
+        app:layout_constraintBottom_toBottomOf="@+id/thoughOptionsImage"
         app:layout_constraintStart_toEndOf="@+id/listViewUsername"
-        app:layout_constraintTop_toTopOf="@+id/listViewUsername"
+        app:layout_constraintTop_toTopOf="@+id/thoughOptionsImage"
         tools:text="Apr 24, 1:30 PM" />
 
     <TextView
@@ -86,4 +86,14 @@
         app:layout_constraintStart_toEndOf="@+id/listViewCommentImage"
         app:layout_constraintTop_toTopOf="@+id/listViewCommentImage"
         tools:text="99" />
+
+    <ImageView
+        android:id="@+id/thoughOptionsImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/optionsimagedark" />
 </android.support.constraint.ConstraintLayout>
