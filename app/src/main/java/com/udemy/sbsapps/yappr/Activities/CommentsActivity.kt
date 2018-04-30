@@ -1,6 +1,7 @@
 package com.udemy.sbsapps.yappr.Activities
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -93,18 +94,17 @@ class CommentsActivity : AppCompatActivity(), CommentOptionsClickListener {
                     .addOnFailureListener { exception ->
                         Log.e("Exception:", "Could not delete comment: ${exception.localizedMessage}")
                     }
-//            commentRef.delete()
-//                    .addOnSuccessListener {
-//                        ad.dismiss()
-//                    }
-//                    .addOnFailureListener { exception ->
-//                        Log.e("Exception:", "Could not delete comment: ${exception.localizedMessage}")
-//                    }
 
         }
 
         editBtn.setOnClickListener {
             //edit the comment
+            val intent = Intent(this, UpdateCommentActivity::class.java)
+            intent.putExtra(THOUGHT_DOC_ID_EXTRA, thoughtDocumentId)
+            intent.putExtra(COMMENT_DOC_ID_EXTRA, comment.documentId)
+            intent.putExtra(COMMENT_TXT_EXTRA, comment.commentTxt)
+            ad.dismiss()
+            startActivity(intent)
         }
     }
 
