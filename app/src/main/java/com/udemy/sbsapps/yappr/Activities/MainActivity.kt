@@ -2,12 +2,14 @@ package com.udemy.sbsapps.yappr.Activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.udemy.sbsapps.yappr.*
@@ -19,20 +21,17 @@ import com.udemy.sbsapps.yappr.Utilities.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), ThoughtOptionsClickListener {
 
-    override fun thoughtOptionsMenuClicked(thought: Thought) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     var selectedCategory = FUNNY
+
     lateinit var thoughtsAdapter: ThoughtsAdapter
     val thoughts = arrayListOf<Thought>()
     val thoughtsCollectionRef = FirebaseFirestore.getInstance().collection(THOUGHTS_REF)
     lateinit var thoughtsListener : ListenerRegistration
     lateinit var auth : FirebaseAuth
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,6 +58,40 @@ class MainActivity : AppCompatActivity(), ThoughtOptionsClickListener {
         updateUI()
     }
 
+    override fun thoughtOptionsMenuClicked(thought: Thought) {
+        val builder = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.options_menu, null)
+        val deleteBtn = dialogView.findViewById<Button>(R.id.optionDeleteBtn)
+        val editBtn = dialogView.findViewById<Button>(R.id.optionEditBtn)
+
+        builder.setView(dialogView)
+                .setNegativeButton("Cancel") { _, _-> }
+        val ad = builder.show()
+
+        deleteBtn.setOnClickListener {
+            // delete the comment
+           val thoughtRef = FirebaseFirestore.getInstance().collection(THOUGHTS_REF).document(thought.documentId)
+            val collectionRef =  thoughtsCollectionRef.document(thought.documentId)
+                    .collection(COMMENTS_REF)
+
+            deleteCollection(collectionRef, thought) { success ->
+                if (success) {
+                    thoughtRef.delete()
+                            .addOnSuccessListener {
+                                ad.dismiss()
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.e("Exception:", "Could not delete thought: ${exception.localizedMessage}")
+                            }
+                }
+            }
+        }
+
+        editBtn.setOnClickListener {
+
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
@@ -74,6 +107,29 @@ class MainActivity : AppCompatActivity(), ThoughtOptionsClickListener {
             menuItem.title = "Logout"
         }
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    fun deleteCollection(collection: CollectionReference, thought: Thought, complete: (Boolean) -> Unit) {
+        collection.get().addOnSuccessListener { snapshot ->
+            thread {
+                val batch = FirebaseFirestore.getInstance().batch()
+                for (document in snapshot) {
+                    val docRef = thoughtsCollectionRef.document(thought.documentId)
+                            .collection(COMMENTS_REF).document(document.id)
+                    batch.delete(docRef)
+                }
+                batch.commit()
+                        .addOnSuccessListener {
+                            complete(true)
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.e("Exception:", "Could not delete subCollection: ${exception.localizedMessage}")
+                        }
+            }
+        }
+                .addOnFailureListener { exception ->
+                    Log.e("Exception:", "Could not retrieve documents: ${exception.localizedMessage}")
+                }
     }
 
     fun updateUI() {
