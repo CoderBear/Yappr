@@ -88,7 +88,11 @@ class MainActivity : AppCompatActivity(), ThoughtOptionsClickListener {
         }
 
         editBtn.setOnClickListener {
-
+            val intent = Intent(this, UpdateThoughtActivity::class.java)
+            intent.putExtra(THOUGHT_DOC_ID_EXTRA, thought.documentId)
+            intent.putExtra(THOUGHT_TXT_EXTRA, thought.thoughtText)
+            ad.dismiss()
+            startActivity(intent)
         }
     }
 
